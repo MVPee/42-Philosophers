@@ -6,46 +6,41 @@
 #    By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/20 14:43:43 by mvan-pee          #+#    #+#              #
-#    Updated: 2023/12/20 14:43:57 by mvan-pee         ###   ########.fr        #
+#    Updated: 2023/12/20 15:01:51 by mvan-pee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 
-LIBFT = srcs/libft
-
-SRCS = 	srcs/philo/main.c
-
+SRCS = 	srcs/main.c
 OBJS = $(SRCS:.c=.o)
+CFLAGS = -Wall -Werror -Wextra
 
-CFLAGS = -I$(LIBFT) -Wall -Werror -Wextra
-LDFLAGS = -L$(LIBFT) -lft
+RED=\033[0;31m
+GREEN=\033[0;32m
+NC=\033[0m
 
 all: $(NAME)
 
-$(LIBFT)/libft.a:
-	$(MAKE) -C $(LIBFT)
-
-$(NAME): $(OBJS) $(LIBFT)/libft.a
-	gcc $(OBJS) $(LDFLAGS) -o $(NAME)
+$(NAME): $(OBJS)
+	@gcc $(CFLAGS) $(OBJS) -o $(NAME)
 
 %.o: %.c
-	gcc $(CFLAGS) -c $< -o $@
-
+	@gcc $(CFLAGS) -c $< -o $@
+	@echo "\n${RED}██████╗ ██╗  ██╗██╗██╗      ██████╗ ${NC}"
+	@echo "${RED}██╔══██╗██║  ██║██║██║     ██╔═══██╗${NC}"
+	@echo "${RED}██████╔╝███████║██║██║     ██║   ██║${NC}"
+	@echo "${RED}██╔═══╝ ██╔══██║██║██║     ██║   ██║${NC}"
+	@echo "${RED}██║     ██║  ██║██║███████╗╚██████╔╝${NC}"
+	@echo "${RED}╚═╝     ╚═╝  ╚═╝╚═╝╚══════╝ ╚═════╝ ${NC}\n\n"
+	@echo "${GREEN}Try ./philo time_die time_eat time_sleep how_much_eat${NC}\n"
+	
 clean:
-	$(MAKE) -C $(LIBFT) clean
-	rm -f $(OBJS)
+	@rm -f $(OBJS)
 
 fclean: clean
-	$(MAKE) -C $(LIBFT) fclean
-	rm -f $(NAME)
+	@rm -f $(NAME)
 
 re: fclean all
-
-sort: all
-	./push_swap 1 4 56 1009 12938
-
-nsort: all
-	./push_swap 1 2 56 12938 1009 
 
 .PHONY: all clean fclean re

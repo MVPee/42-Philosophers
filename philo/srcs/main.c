@@ -6,14 +6,14 @@
 /*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 14:41:32 by mvan-pee          #+#    #+#             */
-/*   Updated: 2023/12/20 14:42:09 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2023/12/20 14:48:46 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/philo.h"
+#include "../includes/philo.h"
 
 int main(void)
 {
-    ft_printf("Test\n");
+    printf("Test\n");
     return 0;
 }
