@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 14:41:32 by mvan-pee          #+#    #+#             */
-/*   Updated: 2023/12/22 12:08:10 by mvpee            ###   ########.fr       */
+/*   Updated: 2023/12/22 12:15:40 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,17 +40,18 @@ static int	init_info(t_data *data, char **args)
 
 static void *routine(void *arg) {
     t_data *data = (t_data *)arg;
-	pthread_mutex_lock(&data->eat);
-	data->test++;
-	printf("%d\n", data->test);
-	pthread_mutex_unlock(&data->eat);
+	int temp = 0;
+	pthread_mutex_lock(&data->mutex_eat);
+	while(temp++ < 1000000)
+		data->test++;
+	pthread_mutex_unlock(&data->mutex_eat);
 }
 
 static int init_thread(t_data *data)
 {
 	int i;
 
-	pthread_mutex_init(&data->eat, NULL);
+	pthread_mutex_init(&data->mutex_eat, NULL);
 	data->test = 0;
 	i = 0;
 	while(i < data->info.number_of_philo)
@@ -66,6 +67,7 @@ static int init_thread(t_data *data)
 			return (1);
 		i++;
 	}
+	printf("test: %d\n", data->test);
 	return (0);
 }
 
