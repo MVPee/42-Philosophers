@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 14:01:43 by mvpee             #+#    #+#             */
-/*   Updated: 2023/12/22 14:53:56 by mvpee            ###   ########.fr       */
+/*   Updated: 2023/12/22 14:59:33 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,16 @@ bool	init_philo(t_data *data)
 {
 	int	i;
 
-	data->philo = (t_philo *)malloc(sizeof(t_philo)
+	data->philo = (t_philo *)malloc(sizeof(t_philo) \
 		* data->info.number_of_philo);
 	if (!data->philo)
 		return (printf("malloc failed...\n"), true);
 	i = -1;
 	while (++i < data->info.number_of_philo)
-    {
-        data->philo[i].id = i + 1;
-        data->philo[i].fork = true;
-    }
+	{
+		data->philo[i].id = i + 1;
+		data->philo[i].fork = true;
+	}
 	return (false);
 }
 

@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 14:46:25 by mvpee             #+#    #+#             */
-/*   Updated: 2023/12/22 14:46:42 by mvpee            ###   ########.fr       */
+/*   Updated: 2023/12/22 14:59:20 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	*routine(void *arg)
 
 int	threading(t_data *data)
 {
-	int i;
+	int	i;
 
 	pthread_mutex_init(&data->mutex_eat, NULL);
 	data->test = 0;
