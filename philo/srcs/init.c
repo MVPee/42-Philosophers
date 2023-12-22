@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 14:01:43 by mvpee             #+#    #+#             */
-/*   Updated: 2023/12/22 17:11:11 by mvpee            ###   ########.fr       */
+/*   Updated: 2023/12/22 18:32:00 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ bool	init_philo(t_data *data)
 	{
 		data->philo[i].id = i + 1;
 		data->philo[i].fork = true;
-		data->philo[i].dead = true;
+		data->philo[i].dead = false;
 	}
 	return (false);
 }

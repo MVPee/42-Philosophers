@@ -6,11 +6,16 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 14:46:25 by mvpee             #+#    #+#             */
-/*   Updated: 2023/12/22 18:24:58 by mvpee            ###   ########.fr       */
+/*   Updated: 2023/12/22 18:42:34 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
+
+static void eating(t_data *data, int index)
+{
+	return ;
+}
 
 static void	*routine(void *args)
 {
@@ -18,9 +23,12 @@ static void	*routine(void *args)
 	int index = all->index;
     t_data *data = all->data;
 
-	pthread_mutex_lock(&data->mutex_print);
-	printf("index: %d\n", all->index);
-	pthread_mutex_unlock(&data->mutex_print);
+	while(!is_dead(data))
+	{
+	// 	eating(data, index);
+	// 	thinking();
+	// 	sleeping();
+	}
 	return (NULL);
 }
 
