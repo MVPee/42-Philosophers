@@ -6,7 +6,7 @@
 #    By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/20 14:43:43 by mvan-pee          #+#    #+#              #
-#    Updated: 2023/12/22 14:50:08 by mvpee            ###   ########.fr        #
+#    Updated: 2023/12/22 17:01:14 by mvpee            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ SRCS = 	srcs/main.c \
 		srcs/init.c
 
 OBJS = $(SRCS:%.c=%.o)
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = #-Wall -Werror -Wextra
 
 RED=\033[0;31m
 GREEN=\033[0;32m

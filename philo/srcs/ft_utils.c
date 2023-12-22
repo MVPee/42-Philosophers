@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 10:45:10 by mvpee             #+#    #+#             */
-/*   Updated: 2023/12/22 14:59:10 by mvpee            ###   ########.fr       */
+/*   Updated: 2023/12/22 17:10:13 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,15 @@ void	ft_clean(t_data *data)
 {
 	free(data->philo);
 	pthread_mutex_destroy(&data->mutex_eat);
+}
+
+bool	is_dead(t_data *data)
+{
+	int	i;
+
+	i = -1;
+	while (++i < data->info.number_of_philo)
+		if (data->philo[i].dead == true)
+			return (true);
+	return (false);
 }
