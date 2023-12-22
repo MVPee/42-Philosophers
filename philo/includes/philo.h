@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 14:42:17 by mvan-pee          #+#    #+#             */
-/*   Updated: 2023/12/22 17:46:50 by mvpee            ###   ########.fr       */
+/*   Updated: 2023/12/22 18:23:49 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ typedef struct s_data
 {
 	t_info			info;
 	t_philo			*philo;
-	pthread_mutex_t	mutex_eat;
+	pthread_mutex_t	mutex_print;
 }					t_data;
 
 typedef struct s_all
@@ -53,7 +53,7 @@ typedef struct s_all
 }					t_all;
 
 /* Main function for threading*/
-int					threading(t_data *data);
+bool				threading(t_data *data);
 bool				is_dead(t_data *data);
 
 /* Initialisation */
