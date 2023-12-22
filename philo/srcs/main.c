@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 14:41:32 by mvan-pee          #+#    #+#             */
-/*   Updated: 2023/12/22 12:20:27 by mvpee            ###   ########.fr       */
+/*   Updated: 2023/12/22 12:21:18 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static int init_thread(t_data *data)
 	return (0);
 }
 
-static void ft_clear(t_data *data)
+static void ft_clean(t_data *data)
 {
 	free(data->philo);
 	pthread_mutex_destroy(&data->mutex_eat);
@@ -88,7 +88,7 @@ int	main(int ac, char **av)
 	if (init_info(&data, av + 1))
 		return (1);
 	if (init_thread(&data))
-		return (ft_clear(&data), 1);
-	ft_clear(&data);
+		return (ft_clean(&data), 1);
+	ft_clean(&data);
 	return 0;
 }
