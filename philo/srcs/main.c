@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 14:41:32 by mvan-pee          #+#    #+#             */
-/*   Updated: 2023/12/22 12:15:40 by mvpee            ###   ########.fr       */
+/*   Updated: 2023/12/22 12:20:27 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ static int	init_info(t_data *data, char **args)
 		info.number_of_times = ft_atoi(args[4]);
 	data->info = info;
 	data->philo = (pthread_t *)malloc(sizeof(pthread_t) * info.number_of_philo);
+	if(!data->philo)
+		return (1);
 	return (0);
 }
 
@@ -71,6 +73,12 @@ static int init_thread(t_data *data)
 	return (0);
 }
 
+static void ft_clear(t_data *data)
+{
+	free(data->philo);
+	pthread_mutex_destroy(&data->mutex_eat);
+}
+
 int	main(int ac, char **av)
 {
 	t_data data;
@@ -80,6 +88,7 @@ int	main(int ac, char **av)
 	if (init_info(&data, av + 1))
 		return (1);
 	if (init_thread(&data))
-		return (1); //put free and destroy mutex;
+		return (ft_clear(&data), 1);
+	ft_clear(&data);
 	return 0;
 }
