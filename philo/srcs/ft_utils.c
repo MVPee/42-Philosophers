@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 10:45:10 by mvpee             #+#    #+#             */
-/*   Updated: 2023/12/22 10:46:08 by mvpee            ###   ########.fr       */
+/*   Updated: 2023/12/22 14:45:45 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,10 @@ int	ft_atoi(const char *nptr)
 			return (0);
 	}
 	return (nbr * sign);
+}
+
+void	ft_clean(t_data *data)
+{
+	free(data->philo);
+	pthread_mutex_destroy(&data->mutex_eat);
 }
