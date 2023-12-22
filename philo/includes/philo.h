@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 14:42:17 by mvan-pee          #+#    #+#             */
-/*   Updated: 2023/12/22 14:56:17 by mvpee            ###   ########.fr       */
+/*   Updated: 2023/12/22 16:51:57 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct s_philo
 	int				id;
 	pthread_t		thread;
 	bool			fork;
+	t_info			info;
 }					t_philo;
 
 typedef struct s_data
