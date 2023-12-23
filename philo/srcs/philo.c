@@ -6,35 +6,22 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 14:46:25 by mvpee             #+#    #+#             */
-/*   Updated: 2023/12/23 11:55:05 by mvpee            ###   ########.fr       */
+/*   Updated: 2023/12/23 16:14:40 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-static void eating(t_data *data, int index1, int index2)
+static bool check_dead(t_data *data, int index1)
 {
-	pthread_mutex_lock(&data->mutex_print);
-	printf("%d is eating\n", data->philo[index1].id);
-	pthread_mutex_unlock(&data->mutex_print);
-	usleep(data->info.time_to_eat);
-	pthread_mutex_unlock(&data->philo[index1].fork);
-	pthread_mutex_unlock(&data->philo[index2].fork);
-}
-
-static bool takefork(t_data *data, int index1, int index2)
-{
-    if (pthread_mutex_lock(&data->philo[index1].fork) != 0) {
-        return false;
-    }
-    if (pthread_mutex_lock(&data->philo[index2].fork) != 0) {
-        pthread_mutex_unlock(&data->philo[index1].fork);
-        return false;
-    }
-    pthread_mutex_lock(&data->mutex_print);
-	printf("%d has taken fork\n", data->philo[index1].id);
-	pthread_mutex_unlock(&data->mutex_print);
-    return true;
+	if (data->philo[index1].last_eat > data->info.time_to_eat)
+	{
+		pthread_mutex_lock(&data->mutex_print);
+		printf("%dms %d is dead\n", data->philo[index1].time, data->philo[index1].id);
+		pthread_mutex_unlock(&data->mutex_print);
+		return (true);
+	}
+	return (false);
 }
 
 static void	*routine(void *args)
@@ -55,17 +42,20 @@ static void	*routine(void *args)
 		index2 = index1 - 1;
 	while (!is_dead(data))
 	{
+		if (check_dead(data, index1))
+			return (NULL);
 		if (takefork(data, index1, index2))
 			eating(data, index1, index2);
-		
-		pthread_mutex_lock(&data->mutex_print);
-		printf("%d is sleeping\n", data->philo[index1].id);
-		pthread_mutex_unlock(&data->mutex_print);
-		usleep(data->info.time_to_sleep);
-		
-		pthread_mutex_lock(&data->mutex_print);
-		printf("%d is thinking\n", data->philo[index1].id);
-		pthread_mutex_unlock(&data->mutex_print);
+		if (check_dead(data, index1))
+			return (NULL);
+		if (check_dead(data, index1))
+			return (NULL);
+		sleeping(data, index1);
+		if (check_dead(data, index1))
+			return (NULL);
+		thinking(data, index1);
+		if (check_dead(data, index1))
+			return (NULL);
 	}
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 10:45:10 by mvpee             #+#    #+#             */
-/*   Updated: 2023/12/23 11:21:06 by mvpee            ###   ########.fr       */
+/*   Updated: 2023/12/23 16:21:15 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,13 @@ int	ft_atoi(const char *nptr)
 
 void	ft_clean(t_data *data)
 {
+	int i;
+
 	free(data->philo);
 	pthread_mutex_destroy(&data->mutex_print);
+	i = -1;
+	while(++i < data->info.number_of_philo)
+		pthread_mutex_destroy(&data->philo[i].fork);
 }
 
 bool	is_dead(t_data *data)

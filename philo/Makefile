@@ -6,7 +6,7 @@
 #    By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/20 14:43:43 by mvan-pee          #+#    #+#              #
-#    Updated: 2023/12/22 17:01:14 by mvpee            ###   ########.fr        #
+#    Updated: 2023/12/23 15:52:08 by mvpee            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,7 @@ NAME = philo
 
 SRCS = 	srcs/main.c \
 		srcs/philo.c \
+		srcs/actions.c \
 		srcs/ft_utils.c \
 		srcs/init.c
 

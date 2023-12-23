@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 14:42:17 by mvan-pee          #+#    #+#             */
-/*   Updated: 2023/12/23 11:21:00 by mvpee            ###   ########.fr       */
+/*   Updated: 2023/12/23 16:04:00 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ typedef struct s_info
 typedef struct s_philo
 {
 	int				id;
+	int				time;
+	int				last_eat;
 	pthread_t		thread;
 	pthread_mutex_t	fork;
 	bool			dead;
@@ -54,7 +56,13 @@ typedef struct s_all
 
 /* Main function for threading*/
 bool				threading(t_data *data);
+
 bool				is_dead(t_data *data);
+
+bool				takefork(t_data *data, int index1, int index2);
+void				eating(t_data *data, int index1, int index2);
+void				thinking(t_data *data, int index1);
+void				sleeping(t_data *data, int index1);
 
 /* Initialisation */
 bool				init_info(t_data *data, char **args);
