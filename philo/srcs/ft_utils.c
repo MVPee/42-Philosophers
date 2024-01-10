@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 10:45:10 by mvpee             #+#    #+#             */
-/*   Updated: 2023/12/23 16:21:15 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/01/10 08:58:14 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,37 @@ int	ft_atoi(const char *nptr)
 	return (nbr * sign);
 }
 
+void	ft_sleep(int time)
+{
+	int	start;
+
+	start = get_time();
+	while (get_time() < (start + time))
+		usleep(500);
+}
+
+long	get_time()
+{
+	struct timeval			time;
+	static struct timeval	initial_time;
+
+	gettimeofday(&time, NULL);
+	if (!initial_time.tv_sec)
+	{
+		initial_time.tv_sec = time.tv_sec;
+		initial_time.tv_usec = time.tv_usec;
+	}
+	return (((time.tv_sec * 1000) + (time.tv_usec / 1000)) - 
+		((initial_time.tv_sec * 1000) + (initial_time.tv_usec / 1000)));
+}
+
 void	ft_clean(t_data *data)
 {
 	int i;
 
 	free(data->philo);
 	pthread_mutex_destroy(&data->mutex_print);
+	pthread_mutex_destroy(&data->fork);
 	i = -1;
 	while(++i < data->info.number_of_philo)
 		pthread_mutex_destroy(&data->philo[i].fork);

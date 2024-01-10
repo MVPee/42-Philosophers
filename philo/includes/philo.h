@@ -6,7 +6,7 @@
 /*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 14:42:17 by mvan-pee          #+#    #+#             */
-/*   Updated: 2024/01/10 08:17:52 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/01/10 08:56:57 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,7 @@ bool				init_philo(t_data *data);
 /* Utils */
 int					ft_atoi(const char *nptr);
 void				ft_clean(t_data *data);
+long				get_time(void);
+void				ft_sleep(int ms);
 
 #endif
