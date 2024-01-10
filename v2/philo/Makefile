@@ -6,7 +6,7 @@
 #    By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/20 14:43:43 by mvan-pee          #+#    #+#              #
-#    Updated: 2024/01/10 10:40:27 by mvan-pee         ###   ########.fr        #
+#    Updated: 2024/01/10 10:43:28 by mvan-pee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,8 @@ NAME = philo
 
 SRCS = 	srcs/main.c \
 		srcs/ft_utils.c \
-		srcs/init.c
+		srcs/init.c \
+		srcs/routine.c
 
 OBJS = $(SRCS:%.c=%.o)
 CFLAGS = #-Wall -Werror -Wextra
