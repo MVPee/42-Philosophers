@@ -3,25 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 14:46:25 by mvpee             #+#    #+#             */
-/*   Updated: 2023/12/23 16:14:40 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/01/10 08:25:26 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-static bool check_dead(t_data *data, int index1)
+static bool check_last_eat(t_data *data, int index1)
 {
 	if (data->philo[index1].last_eat > data->info.time_to_eat)
 	{
 		pthread_mutex_lock(&data->mutex_print);
 		printf("%dms %d is dead\n", data->philo[index1].time, data->philo[index1].id);
+		data->philo[index1].dead = true;
 		pthread_mutex_unlock(&data->mutex_print);
-		return (true);
+		return (false);
 	}
-	return (false);
+	return (true);
 }
 
 static void	*routine(void *args)
@@ -42,20 +43,15 @@ static void	*routine(void *args)
 		index2 = index1 - 1;
 	while (!is_dead(data))
 	{
-		if (check_dead(data, index1))
-			return (NULL);
-		if (takefork(data, index1, index2))
-			eating(data, index1, index2);
-		if (check_dead(data, index1))
-			return (NULL);
-		if (check_dead(data, index1))
-			return (NULL);
-		sleeping(data, index1);
-		if (check_dead(data, index1))
-			return (NULL);
-		thinking(data, index1);
-		if (check_dead(data, index1))
-			return (NULL);
+		if (check_last_eat(data, index1))
+		{
+			if (takefork(data, index1, index2))
+				eating(data, index1, index2);
+		}
+		if (check_last_eat(data, index1))
+			sleeping(data, index1);
+		if (check_last_eat(data, index1))
+			thinking(data, index1);
 	}
 	return (NULL);
 }
@@ -75,6 +71,7 @@ bool	threading(t_data *data)
 		all[i].index = i;
 	}
 	pthread_mutex_init(&data->mutex_print, NULL);
+	pthread_mutex_init(&data->fork, NULL);
 	i = -1;
 	while (++i < data->info.number_of_philo)
 	{
