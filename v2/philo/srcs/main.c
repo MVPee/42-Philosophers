@@ -6,7 +6,7 @@
 /*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 14:41:32 by mvan-pee          #+#    #+#             */
-/*   Updated: 2024/01/10 10:40:05 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/01/10 10:47:58 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,5 @@ int	main(int ac, char **av)
 		return (1);
 	if (init_philo(&data))
 		return (2);
-	return (0);
+	return (ft_clean(&data), 0);
 }
