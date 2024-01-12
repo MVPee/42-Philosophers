@@ -6,7 +6,7 @@
 /*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 14:42:17 by mvan-pee          #+#    #+#             */
-/*   Updated: 2024/01/12 11:07:18 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/01/12 11:41:02 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ typedef struct s_data
 	t_philo			*philo;
 	pthread_mutex_t	mutex_print;
 	pthread_mutex_t	mutex_fork;
+	pthread_mutex_t	mutex_eat;
+	pthread_mutex_t	mutex_data;
 }					t_data;
 
 typedef struct s_all

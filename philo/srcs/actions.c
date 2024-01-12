@@ -6,7 +6,7 @@
 /*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 09:54:57 by mvan-pee          #+#    #+#             */
-/*   Updated: 2024/01/12 11:04:16 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/01/12 11:40:49 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@ void	print(t_data *data, int index, int code)
 	else if (code == DIED && !is_died(data))
 	{
 		printf("%d %d is died\n", get_time(data), index + 1);
+        pthread_mutex_lock(&data->mutex_data);
 		data->philo[index].dead = true;
+        pthread_mutex_unlock(&data->mutex_data);
 	}
 	pthread_mutex_unlock(&data->mutex_print);
 }
@@ -54,8 +56,10 @@ void	eating(t_data *data, int index1, int index2)
 {
 	print(data, index1, EAT);
 	ft_sleep(data, data->info.time_to_eat);
+    pthread_mutex_lock(&data->mutex_eat);
 	data->philo[index1].last_eat = get_time(data);
 	data->philo[index1].nbr_eat += 1;
+    pthread_mutex_unlock(&data->mutex_eat);
 	pthread_mutex_unlock(&data->philo[index1].fork);
 	pthread_mutex_unlock(&data->philo[index2].fork);
 }

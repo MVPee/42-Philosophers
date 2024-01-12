@@ -6,7 +6,7 @@
 #    By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/20 14:43:43 by mvan-pee          #+#    #+#              #
-#    Updated: 2024/01/12 11:01:52 by mvan-pee         ###   ########.fr        #
+#    Updated: 2024/01/12 11:17:41 by mvan-pee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ SRCS = 	srcs/main.c \
 		srcs/actions.c
 
 OBJS = $(SRCS:%.c=%.o)
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -g -fsanitize=thread
 
 RED=\033[0;31m
 GREEN=\033[0;32m

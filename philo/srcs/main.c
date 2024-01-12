@@ -6,7 +6,7 @@
 /*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 14:41:32 by mvan-pee          #+#    #+#             */
-/*   Updated: 2024/01/12 11:07:11 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/01/12 11:40:56 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ static void	ft_clean(t_data *data)
 	free(data->philo);
 	pthread_mutex_destroy(&data->mutex_print);
 	pthread_mutex_destroy(&data->mutex_fork);
+	pthread_mutex_destroy(&data->mutex_eat);
+	pthread_mutex_destroy(&data->mutex_data);
 	i = -1;
 	while (++i < data->info.number_of_philo)
 		pthread_mutex_destroy(&data->philo[i].fork);

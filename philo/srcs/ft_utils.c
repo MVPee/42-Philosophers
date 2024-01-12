@@ -6,7 +6,7 @@
 /*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 10:45:10 by mvpee             #+#    #+#             */
-/*   Updated: 2024/01/12 11:06:59 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/01/12 11:36:37 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,11 @@ bool	is_died(t_data *data)
 	int	i;
 
 	i = -1;
+	pthread_mutex_lock(&data->mutex_data);
 	while (++i < data->info.number_of_philo)
 		if (data->philo[i].dead == true)
-			return (true);
-	return (false);
+			return (pthread_mutex_unlock(&data->mutex_data), true);
+	return (pthread_mutex_unlock(&data->mutex_data), false);
 }
 
 int	ft_atoi(const char *nptr)

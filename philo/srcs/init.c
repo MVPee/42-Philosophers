@@ -6,7 +6,7 @@
 /*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 14:01:43 by mvpee             #+#    #+#             */
-/*   Updated: 2024/01/12 11:08:06 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/01/12 11:40:54 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ bool	init_philo(t_data *data)
 	}
 	pthread_mutex_init(&data->mutex_fork, NULL);
 	pthread_mutex_init(&data->mutex_print, NULL);
+	pthread_mutex_init(&data->mutex_eat, NULL);
+	pthread_mutex_init(&data->mutex_data, NULL);
 	return (false);
 }
 
