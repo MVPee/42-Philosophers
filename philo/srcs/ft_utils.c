@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 10:45:10 by mvpee             #+#    #+#             */
-/*   Updated: 2024/01/12 11:36:37 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/01/12 17:26:03 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,13 @@ int	get_time(t_data *data)
 {
 	int				result;
 	struct timeval	time;
+	struct timeval	start;
 
+	if (!data->start_time)
+	{
+		gettimeofday(&start, NULL);
+		data->start_time = start.tv_sec * 1000 + start.tv_usec / 1000;
+	}
 	gettimeofday(&time, NULL);
 	result = (time.tv_sec * 1000 + time.tv_usec / 1000) - data->start_time;
 	return (result);

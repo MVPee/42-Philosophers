@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 14:41:32 by mvan-pee          #+#    #+#             */
-/*   Updated: 2024/01/12 11:41:44 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/01/12 17:25:52 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,7 @@ static void	ft_clean(t_data *data)
 int	main(int ac, char **av)
 {
 	t_data			data;
-	struct timeval	time;
 
-	gettimeofday(&time, NULL);
-	data.start_time = time.tv_sec * 1000 + time.tv_usec / 1000;
 	if (ac != 5 && ac != 6)
 		return (printf("Invalid number(s) of argument(s).\n"), -1);
 	if (init_info(&data, av + 1))
