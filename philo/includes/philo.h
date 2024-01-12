@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 14:42:17 by mvan-pee          #+#    #+#             */
-/*   Updated: 2024/01/12 15:01:07 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/01/12 17:29:42 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ typedef struct s_all
 /* Main function for threading*/
 bool				threading(t_data *data);
 void				print(t_data *data, int index, int code);
+// ACTIONS
 bool				takefork(t_data *data, int index1, int index2);
 void				eating(t_data *data, int index1, int index2);
 void				sleeping(t_data *data, int index);
