@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 14:42:17 by mvan-pee          #+#    #+#             */
-/*   Updated: 2024/01/12 11:41:02 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/01/12 15:01:07 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ bool				threading(t_data *data);
 void				print(t_data *data, int index, int code);
 bool				takefork(t_data *data, int index1, int index2);
 void				eating(t_data *data, int index1, int index2);
+void				sleeping(t_data *data, int index);
 
 /* Initialisation */
 bool				init_info(t_data *data, char **args);

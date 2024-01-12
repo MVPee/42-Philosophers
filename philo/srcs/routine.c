@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 10:43:13 by mvan-pee          #+#    #+#             */
-/*   Updated: 2024/01/12 11:32:06 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/01/12 15:01:28 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,7 @@ static void	*routine(void *args)
 			eating(data, index1, index2);
 		if (how_much_eat(data, index1))
 			return (NULL);
-		print(data, index1, SLEEP);
-		ft_sleep(data, data->info.time_to_sleep);
+		sleeping(data, index1);
 		if (check_last_eat(data, index1))
 			return (NULL);
 		print(data, index1, THINK);
