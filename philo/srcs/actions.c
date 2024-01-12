@@ -5,66 +5,56 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/23 15:48:45 by mvpee             #+#    #+#             */
-/*   Updated: 2024/01/10 10:15:42 by mvan-pee         ###   ########.fr       */
+/*   Created: 2024/01/12 09:54:57 by mvan-pee          #+#    #+#             */
+/*   Updated: 2024/01/12 10:34:29 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-void thinking(t_data *data, int index1)
+void print(t_data *data, int index, int code)
 {
     pthread_mutex_lock(&data->mutex_print);
-    printf("%ld %d is thinking\n", get_time(), data->philo[index1].id);
-    pthread_mutex_unlock(&data->mutex_print);
-}
-
-void sleeping(t_data *data, int index1)
-{
-	pthread_mutex_lock(&data->mutex_print);
-    printf("%ld %d is sleeping\n", get_time(), data->philo[index1].id);
-    data->philo[index1].last_eat = get_time();
-    data->philo[index1].time += data->info.time_to_sleep;
-    if (data->philo->last_eat + data->info.time_to_sleep > data->info.time_to_die)
+    if (code == FORK && !is_died(data))
+        printf("%d %d has taken a fork\n", get_time(data), index + 1);
+    else if (code == EAT && !is_died(data))
+        printf("%d %d is eating\n", get_time(data), index + 1);
+    else if (code == SLEEP && !is_died(data))
+        printf("%d %d is sleeping\n", get_time(data), index + 1);
+    else if (code == THINK && !is_died(data))
+        printf("%d %d is thinking\n", get_time(data), index + 1);
+    else if (code == DIED && !is_died(data))
     {
-        printf("%ld %d is dead\n", get_time() + data->info.time_to_die - data->info.time_to_sleep, data->philo[index1].id);
-        data->philo[index1].dead = true;
-        pthread_mutex_unlock(&data->mutex_print);
-        return ;
+        printf("%d %d is died\n", get_time(data), index + 1);
+        data->philo[index].dead = true;
     }
     pthread_mutex_unlock(&data->mutex_print);
-    ft_sleep(data->info.time_to_sleep);
-}
-
-void eating(t_data *data, int index1, int index2)
-{
-	pthread_mutex_lock(&data->mutex_print);
-	printf("%ld %d is eating\n", get_time(), data->philo[index1].id);
-    data->philo[index1].last_eat = get_time();
-    data->philo[index1].time += data->info.time_to_eat;
-	pthread_mutex_unlock(&data->mutex_print);
-	ft_sleep(data->info.time_to_eat);
-	pthread_mutex_unlock(&data->philo[index1].fork);
-	pthread_mutex_unlock(&data->philo[index2].fork);
 }
 
 bool takefork(t_data *data, int index1, int index2)
 {
+    pthread_mutex_lock(&data->mutex_fork);
     if (data->info.number_of_philo == 1)
-        return false;
-    pthread_mutex_lock(&data->fork);
-    if (pthread_mutex_lock(&data->philo[index1].fork) != 0) {
-        pthread_mutex_unlock(&data->fork);
+    {
+        pthread_mutex_unlock(&data->mutex_fork);
         return false;
     }
-    if (pthread_mutex_lock(&data->philo[index2].fork) != 0) {
-        pthread_mutex_unlock(&data->philo[index1].fork);
-        pthread_mutex_unlock(&data->fork);
-        return false;
-    }
-    pthread_mutex_unlock(&data->fork);
-    pthread_mutex_lock(&data->mutex_print);
-	printf("%ld %d has taken fork\n", get_time(), data->philo[index1].id);
-	pthread_mutex_unlock(&data->mutex_print);
+    check_last_eat(data, index1);
+    pthread_mutex_lock(&data->philo[index1].fork);
+    check_last_eat(data, index1);
+    print(data, index1, FORK);
+    pthread_mutex_lock(&data->philo[index2].fork);
+    check_last_eat(data, index1);
+    print(data, index1, FORK);
+    pthread_mutex_unlock(&data->mutex_fork);
     return true;
+}
+
+void eating(t_data *data, int index1, int index2)
+{
+    print(data, index1, EAT);
+    ft_sleep(data, data->info.time_to_eat);
+    data->philo[index1].last_eat = get_time(data);
+    pthread_mutex_unlock(&data->philo[index1].fork);
+    pthread_mutex_unlock(&data->philo[index2].fork);
 }

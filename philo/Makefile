@@ -3,20 +3,20 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+         #
+#    By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/20 14:43:43 by mvan-pee          #+#    #+#              #
-#    Updated: 2023/12/23 15:52:08 by mvpee            ###   ########.fr        #
+#    Updated: 2024/01/12 09:51:47 by mvan-pee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 
 SRCS = 	srcs/main.c \
-		srcs/philo.c \
-		srcs/actions.c \
 		srcs/ft_utils.c \
-		srcs/init.c
+		srcs/init.c \
+		srcs/routine.c \
+		srcs/actions.c
 
 OBJS = $(SRCS:%.c=%.o)
 CFLAGS = #-Wall -Werror -Wextra

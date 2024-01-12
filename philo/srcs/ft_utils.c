@@ -6,11 +6,35 @@
 /*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 10:45:10 by mvpee             #+#    #+#             */
-/*   Updated: 2024/01/10 09:51:07 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/01/12 10:31:17 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
+
+bool check_last_eat(t_data *data, int index)
+{
+    int now = get_time(data);
+    if (now - data->philo[index].last_eat > data->info.time_to_die)
+    {
+        print(data, index, DIED);
+        return (true);
+    }
+    return (false);
+}
+
+bool is_died(t_data *data)
+{
+    int i;
+
+    i = -1;
+    while(++i < data->info.number_of_philo)
+    {
+        if (data->philo[i].dead == true)
+            return (true);
+    }
+    return (false);
+}
 
 int	ft_atoi(const char *nptr)
 {
@@ -40,28 +64,24 @@ int	ft_atoi(const char *nptr)
 	return (nbr * sign);
 }
 
-void	ft_sleep(int time)
+void	ft_sleep(t_data *data, int time)
 {
-	int	start;
+	int start;
 
-	start = get_time();
-	while (get_time() < (start + time))
-		usleep(500);
+	start = get_time(data);
+	
+	while (get_time(data) < start + time)
+		usleep(100);
 }
 
-long	get_time()
+int get_time(t_data *data)
 {
-	struct timeval			time;
-	static struct timeval	initial_time;
+    int				result;
+	struct timeval	time;
 
 	gettimeofday(&time, NULL);
-	if (!initial_time.tv_sec)
-	{
-		initial_time.tv_sec = time.tv_sec;
-		initial_time.tv_usec = time.tv_usec;
-	}
-	return (((time.tv_sec * 1000) + (time.tv_usec / 1000)) - 
-		((initial_time.tv_sec * 1000) + (initial_time.tv_usec / 1000)));
+	result = (time.tv_sec * 1000 + time.tv_usec / 1000) - data->start_time;
+	return (result);
 }
 
 void	ft_clean(t_data *data)
@@ -70,7 +90,7 @@ void	ft_clean(t_data *data)
 
 	free(data->philo);
 	pthread_mutex_destroy(&data->mutex_print);
-	pthread_mutex_destroy(&data->fork);
+	pthread_mutex_destroy(&data->mutex_fork);
 	i = -1;
 	while(++i < data->info.number_of_philo)
 		pthread_mutex_destroy(&data->philo[i].fork);
