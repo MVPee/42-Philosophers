@@ -6,7 +6,7 @@
 /*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 14:42:17 by mvan-pee          #+#    #+#             */
-/*   Updated: 2024/01/12 10:31:35 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/01/12 10:43:08 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ typedef struct s_info
 typedef struct s_philo
 {
 	int				id;
-	int				time;
 	int				last_eat;
+	int				nbr_eat;
 	pthread_t		thread;
 	pthread_mutex_t	fork;
 	bool			dead;

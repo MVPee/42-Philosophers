@@ -6,7 +6,7 @@
 /*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 09:54:57 by mvan-pee          #+#    #+#             */
-/*   Updated: 2024/01/12 10:34:29 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/01/12 10:43:29 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void eating(t_data *data, int index1, int index2)
     print(data, index1, EAT);
     ft_sleep(data, data->info.time_to_eat);
     data->philo[index1].last_eat = get_time(data);
+    data->philo[index1].nbr_eat += 1;
     pthread_mutex_unlock(&data->philo[index1].fork);
     pthread_mutex_unlock(&data->philo[index2].fork);
 }

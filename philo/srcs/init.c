@@ -6,7 +6,7 @@
 /*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 14:01:43 by mvpee             #+#    #+#             */
-/*   Updated: 2024/01/12 09:14:13 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/01/12 10:43:20 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ bool	init_philo(t_data *data)
 	while (++i < data->info.number_of_philo)
 	{
 		data->philo[i].id = i + 1;
-		data->philo[i].time = 0;
 		data->philo[i].last_eat = 0;
+		data->philo[i].nbr_eat = 0;
 		data->philo[i].dead = false;
 		pthread_mutex_init(&data->philo[i].fork, NULL);
 	}
