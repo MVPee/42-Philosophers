@@ -6,34 +6,34 @@
 /*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 10:45:10 by mvpee             #+#    #+#             */
-/*   Updated: 2024/01/12 10:31:17 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/01/12 11:06:59 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-bool check_last_eat(t_data *data, int index)
+bool	check_last_eat(t_data *data, int index)
 {
-    int now = get_time(data);
-    if (now - data->philo[index].last_eat > data->info.time_to_die)
-    {
-        print(data, index, DIED);
-        return (true);
-    }
-    return (false);
+	int	now;
+
+	now = get_time(data);
+	if (now - data->philo[index].last_eat > data->info.time_to_die)
+	{
+		print(data, index, DIED);
+		return (true);
+	}
+	return (false);
 }
 
-bool is_died(t_data *data)
+bool	is_died(t_data *data)
 {
-    int i;
+	int	i;
 
-    i = -1;
-    while(++i < data->info.number_of_philo)
-    {
-        if (data->philo[i].dead == true)
-            return (true);
-    }
-    return (false);
+	i = -1;
+	while (++i < data->info.number_of_philo)
+		if (data->philo[i].dead == true)
+			return (true);
+	return (false);
 }
 
 int	ft_atoi(const char *nptr)
@@ -66,43 +66,19 @@ int	ft_atoi(const char *nptr)
 
 void	ft_sleep(t_data *data, int time)
 {
-	int start;
+	int	start;
 
 	start = get_time(data);
-	
 	while (get_time(data) < start + time)
 		usleep(100);
 }
 
-int get_time(t_data *data)
+int	get_time(t_data *data)
 {
-    int				result;
+	int				result;
 	struct timeval	time;
 
 	gettimeofday(&time, NULL);
 	result = (time.tv_sec * 1000 + time.tv_usec / 1000) - data->start_time;
 	return (result);
-}
-
-void	ft_clean(t_data *data)
-{
-	int i;
-
-	free(data->philo);
-	pthread_mutex_destroy(&data->mutex_print);
-	pthread_mutex_destroy(&data->mutex_fork);
-	i = -1;
-	while(++i < data->info.number_of_philo)
-		pthread_mutex_destroy(&data->philo[i].fork);
-}
-
-bool	is_dead(t_data *data)
-{
-	int	i;
-
-	i = -1;
-	while (++i < data->info.number_of_philo)
-		if (data->philo[i].dead == true)
-			return (true);
-	return (false);
 }

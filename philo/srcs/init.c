@@ -6,7 +6,7 @@
 /*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 14:01:43 by mvpee             #+#    #+#             */
-/*   Updated: 2024/01/12 10:43:20 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/01/12 11:08:06 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ bool	init_info(t_data *data, char **args)
 	int		temp;
 	int		i;
 	t_info	info;
-	
+
 	i = 0;
 	while (args[i])
 	{
@@ -57,5 +57,7 @@ bool	init_info(t_data *data, char **args)
 		info.number_of_times = ft_atoi(args[4]);
 	data->info = info;
 	data->philo = NULL;
+	pthread_mutex_init(&data->mutex_print, NULL);
+	pthread_mutex_init(&data->mutex_fork, NULL);
 	return (false);
 }

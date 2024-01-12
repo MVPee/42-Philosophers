@@ -6,7 +6,7 @@
 /*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 14:42:17 by mvan-pee          #+#    #+#             */
-/*   Updated: 2024/01/12 10:43:08 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/01/12 11:07:18 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include <sys/time.h>
 # include <unistd.h>
 
-enum				Action
+enum				e_action
 {
 	FORK,
 	EAT,
@@ -77,7 +77,6 @@ bool				init_philo(t_data *data);
 
 /* Utils */
 int					ft_atoi(const char *nptr);
-void				ft_clean(t_data *data);
 int					get_time(t_data *data);
 void				ft_sleep(t_data *data, int time);
 bool				is_died(t_data *data);

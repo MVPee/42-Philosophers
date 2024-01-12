@@ -6,21 +6,28 @@
 /*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 10:43:13 by mvan-pee          #+#    #+#             */
-/*   Updated: 2024/01/12 10:55:06 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/01/12 11:10:38 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-static bool how_much_eat(t_data *data, int index)
+static bool	how_much_eat(t_data *data, int index)
 {
-	int i;
-	
 	if (data->info.number_of_times == -1)
 		return (false);
 	if (data->philo[index].nbr_eat == data->info.number_of_times)
-		return true;
-	return false;
+		return (true);
+	return (false);
+}
+
+static int	get_left_index(t_data *data, int index)
+{
+	if (index == 0)
+		return (data->info.number_of_philo - 1);
+	else if (index == data->info.number_of_philo - 1)
+		return (0);
+	return (index - 1);
 }
 
 static void	*routine(void *args)
@@ -33,23 +40,18 @@ static void	*routine(void *args)
 	all = (t_all *)args;
 	index1 = all->index;
 	data = all->data;
-	if (index1 == 0)
-		index2 = data->info.number_of_philo - 1;
-	else if (index1 == data->info.number_of_philo - 1)
-		index2 = 0;
-	else
-		index2 = index1 - 1;
+	index2 = get_left_index(data, index1);
 	while (!is_died(data))
 	{
-        if (takefork(data, index1, index2))
-            eating(data, index1, index2);
+		if (takefork(data, index1, index2))
+			eating(data, index1, index2);
 		if (how_much_eat(data, index1))
 			return (NULL);
-        print(data, index1, SLEEP);
-        ft_sleep(data, data->info.time_to_sleep);
-        if (check_last_eat(data, index1))
-            return (NULL);
-        print(data, index1, THINK);
+		print(data, index1, SLEEP);
+		ft_sleep(data, data->info.time_to_sleep);
+		if (check_last_eat(data, index1))
+			return (NULL);
+		print(data, index1, THINK);
 	}
 	return (NULL);
 }
@@ -68,8 +70,6 @@ bool	threading(t_data *data)
 		all[i].data = data;
 		all[i].index = i;
 	}
-	pthread_mutex_init(&data->mutex_print, NULL);
-	pthread_mutex_init(&data->mutex_fork, NULL);
 	i = -1;
 	while (++i < data->info.number_of_philo)
 	{
