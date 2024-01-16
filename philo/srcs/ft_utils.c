@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 10:45:10 by mvpee             #+#    #+#             */
-/*   Updated: 2024/01/12 17:26:03 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/01/16 11:47:44 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ bool	check_last_eat(t_data *data, int index)
 	int	now;
 
 	now = get_time(data);
-	if (now - data->philo[index].last_eat > data->info.time_to_die)
+	if (now - data->philo[index].last_eat >= data->info.time_to_die)
 	{
 		print(data, index, DIED);
 		return (true);
