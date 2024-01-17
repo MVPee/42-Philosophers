@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/12 09:54:57 by mvan-pee          #+#    #+#             */
-/*   Updated: 2024/01/17 13:44:23 by mvpee            ###   ########.fr       */
+/*   Created: 2024/01/17 14:14:26 by mvpee             #+#    #+#             */
+/*   Updated: 2024/01/17 15:28:02 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	print(t_data *data, int index, int code)
 		printf("%d %d is thinking\n", get_time(data), index + 1);
 	else if (code == DIED && !is_died(data))
 	{
-		printf("%d %d is died\n", get_time(data), index + 1);
+		printf("%d %d died\n", get_time(data), index + 1);
 		pthread_mutex_lock(&data->mutex_data);
 		data->philo[index].dead = true;
 		pthread_mutex_unlock(&data->mutex_data);
@@ -41,9 +41,9 @@ bool	takefork(t_data *data, int index1, int index2)
 		pthread_mutex_unlock(&data->mutex_fork);
 		return (false);
 	}
-	pthread_mutex_lock(&data->philo[index1].fork);
-	print(data, index1, FORK);
 	pthread_mutex_lock(&data->philo[index2].fork);
+	print(data, index1, FORK);
+	pthread_mutex_lock(&data->philo[index1].fork);
 	print(data, index1, FORK);
 	pthread_mutex_unlock(&data->mutex_fork);
 	return (true);
@@ -52,24 +52,11 @@ bool	takefork(t_data *data, int index1, int index2)
 void	eating(t_data *data, int index1, int index2)
 {
 	print(data, index1, EAT);
-	pthread_mutex_lock(&data->mutex_eat);
+	data->philo[index1].eating = true;
 	data->philo[index1].last_eat = get_time(data);
 	data->philo[index1].nbr_eat += 1;
-	pthread_mutex_unlock(&data->mutex_eat);
 	ft_sleep(data, data->info.time_to_eat);
 	pthread_mutex_unlock(&data->philo[index1].fork);
 	pthread_mutex_unlock(&data->philo[index2].fork);
-}
-
-void	sleeping(t_data *data, int index)
-{
-	print(data, index, SLEEP);
-	if (data->info.time_to_sleep \
-		+ data->info.time_to_eat > data->info.time_to_die)
-	{
-		ft_sleep(data, data->info.time_to_die - data->info.time_to_sleep);
-		print(data, index, DIED);
-	}
-	else
-		ft_sleep(data, data->info.time_to_sleep);
+	data->philo[index1].eating = false;
 }

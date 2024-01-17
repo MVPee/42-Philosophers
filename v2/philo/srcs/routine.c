@@ -3,14 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 10:43:13 by mvan-pee          #+#    #+#             */
-/*   Updated: 2024/01/16 15:45:51 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/01/17 15:28:10 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
+
+static bool	how_much_eat(t_data *data, int index)
+{
+	if (data->info.number_of_times == -1)
+		return (false);
+	if (data->philo[index].nbr_eat == data->info.number_of_times)
+		return (true);
+	return (false);
+}
 
 static int	get_left_index(t_data *data, int index)
 {
@@ -35,7 +44,11 @@ static void	*routine(void *args)
 	data->philo[index1].last_eat = get_time(data);
 	while (!is_died(data))
 	{
-		printf("t\n");
+		if (takefork(data, index1, index2))
+			eating(data, index1, index2);
+		print(data, index1, SLEEP);
+		ft_sleep(data, data->info.time_to_sleep);
+		print(data, index1, THINK);
 	}
 	return (NULL);
 }
@@ -47,7 +60,7 @@ static void *check_philosophers(void *args)
 	int i;
 	int now;
 
-	while(true)
+	while(69)
 	{
 		i = -1;
 		while(++i < data->info.number_of_philo)
@@ -55,8 +68,7 @@ static void *check_philosophers(void *args)
 			now = get_time(data);
 			if (now - data->philo[i].last_eat >= data->info.time_to_die)
 			{
-				data->philo[i].dead = true;
-				printf("Manager: %d is dead\n", i);
+				print(data, i, DIED);
 				return (NULL);
 			}
 		}
@@ -68,7 +80,7 @@ bool	threading(t_data *data)
 {
 	t_all	*all;
 	int		i;
-	pthread_t t;
+	pthread_t manager;
 
 	all = (t_all *)malloc(sizeof(t_all) * data->info.number_of_philo);
 	if (!all)
@@ -86,13 +98,13 @@ bool	threading(t_data *data)
 				&all[i]) != 0)
 			return (free(all), printf("pthread create failed...\n"), true);
 	}
-	if (pthread_create(&t, NULL, &check_philosophers, data) != 0)
+	if (pthread_create(&manager, NULL, &check_philosophers, data) != 0)
 		return (free(all), printf("pthread create failed...\n"), true);
 	i = -1;
 	while (++i < data->info.number_of_philo)
 		if (pthread_join(data->philo[i].thread, NULL) != 0)
 			return (free(all), printf("pthread join failed...\n"), true);
-	if (pthread_join(t, NULL) != 0)
+	if (pthread_join(manager, NULL) != 0)
 			return (free(all), printf("pthread join failed...\n"), true);
 	return (free(all), false);
 }

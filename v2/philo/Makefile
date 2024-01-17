@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+         #
+#    By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/20 14:43:43 by mvan-pee          #+#    #+#              #
-#    Updated: 2024/01/16 15:20:42 by mvan-pee         ###   ########.fr        #
+#    Updated: 2024/01/17 14:14:46 by mvpee            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,8 @@ NAME = philo
 SRCS = 	srcs/main.c \
 		srcs/ft_utils.c \
 		srcs/init.c \
-		srcs/routine.c
+		srcs/routine.c \
+		srcs/actions.c
 
 OBJS = $(SRCS:%.c=%.o)
 CFLAGS = #-Wall -Werror -Wextra #-g -fsanitize=thread
