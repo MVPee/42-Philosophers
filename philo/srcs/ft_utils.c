@@ -6,24 +6,11 @@
 /*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 10:45:10 by mvpee             #+#    #+#             */
-/*   Updated: 2024/01/16 14:06:08 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/01/16 15:15:52 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
-
-bool	check_last_eat(t_data *data, int index)
-{
-	int	now;
-
-	now = get_time(data);
-	if (now - data->philo[index].last_eat >= data->info.time_to_die)
-	{
-		print(data, index, DIED);
-		return (true);
-	}
-	return (false);
-}
 
 bool	is_died(t_data *data)
 {

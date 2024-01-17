@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 14:42:17 by mvan-pee          #+#    #+#             */
-/*   Updated: 2024/01/16 14:01:40 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/01/17 18:15:18 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct s_philo
 	pthread_t		thread;
 	pthread_mutex_t	fork;
 	bool			dead;
+	bool			eating;
 }					t_philo;
 
 typedef struct s_data
@@ -70,10 +71,8 @@ typedef struct s_all
 /* Main function for threading*/
 bool				threading(t_data *data);
 void				print(t_data *data, int index, int code);
-// ACTIONS
-bool				takefork(t_data *data, int index1, int index2);
+void				takefork(t_data *data, int index1, int index2);
 void				eating(t_data *data, int index1, int index2);
-void				sleeping(t_data *data, int index);
 
 /* Initialisation */
 bool				init_info(t_data *data, char **args);

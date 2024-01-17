@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+         #
+#    By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/20 14:43:43 by mvan-pee          #+#    #+#              #
-#    Updated: 2024/01/12 11:49:15 by mvan-pee         ###   ########.fr        #
+#    Updated: 2024/01/17 14:14:46 by mvpee            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ SRCS = 	srcs/main.c \
 		srcs/actions.c
 
 OBJS = $(SRCS:%.c=%.o)
-CFLAGS = -Wall -Werror -Wextra #-g -fsanitize=thread
+CFLAGS = #-Wall -Werror -Wextra #-g -fsanitize=thread
 
 RED=\033[0;31m
 GREEN=\033[0;32m

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 14:01:43 by mvpee             #+#    #+#             */
-/*   Updated: 2024/01/16 14:02:32 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/01/17 18:15:22 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ bool	init_philo(t_data *data)
 		data->philo[i].last_eat = 0;
 		data->philo[i].nbr_eat = 0;
 		data->philo[i].dead = false;
+		data->philo[i].eating = false;
 		pthread_mutex_init(&data->philo[i].fork, NULL);
 	}
 	pthread_mutex_init(&data->mutex_fork, NULL);
