@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 10:45:10 by mvpee             #+#    #+#             */
-/*   Updated: 2024/01/16 15:15:52 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/01/17 18:59:27 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,21 @@ int	get_time(t_data *data)
 	gettimeofday(&time, NULL);
 	result = (time.tv_sec * 1000 + time.tv_usec / 1000) - data->start_time;
 	return (result);
+}
+
+t_all *get_all_information(t_data *data)
+{
+	t_all *all;
+	int i;
+
+	all = (t_all *)malloc(sizeof(t_all) * data->info.number_of_philo);
+	if (!all)
+		return (printf("malloc failed...\n"), NULL);
+	i = -1;
+	while (++i < data->info.number_of_philo)
+	{
+		all[i].data = data;
+		all[i].index = i;
+	}
+	return (all);
 }

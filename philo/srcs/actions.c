@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 14:14:26 by mvpee             #+#    #+#             */
-/*   Updated: 2024/01/17 18:34:42 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/01/17 18:55:39 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,15 @@ void	takefork(t_data *data, int index1, int index2)
 void	eating(t_data *data, int index1, int index2)
 {
 	print(data, index1, EAT);
-	data->philo[index1].eating = true;
 	data->philo[index1].last_eat = get_time(data);
 	data->philo[index1].nbr_eat += 1;
 	ft_sleep(data, data->info.time_to_eat);
 	pthread_mutex_unlock(&data->philo[index2].fork);
 	pthread_mutex_unlock(&data->philo[index1].fork);
-	data->philo[index1].eating = false;
+}
+
+void	sleeping(t_data *data, int index)
+{
+	print(data, index, SLEEP);
+	ft_sleep(data, data->info.time_to_sleep);
 }

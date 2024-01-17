@@ -6,19 +6,23 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 10:43:13 by mvan-pee          #+#    #+#             */
-/*   Updated: 2024/01/17 18:33:13 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/01/17 19:00:46 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-static bool	how_much_eat(t_data *data, int index)
+static bool	eat_enought(t_data *data)
 {
+	int	i;
+
 	if (data->info.number_of_times == -1)
 		return (false);
-	if (data->philo[index].nbr_eat == data->info.number_of_times)
-		return (true);
-	return (false);
+	i = -1;
+	while (++i < data->info.number_of_philo)
+		if (data->philo[i].nbr_eat != data->info.number_of_times)
+			return (false);
+	return (true);
 }
 
 static int	get_left_index(t_data *data, int index)
@@ -48,31 +52,38 @@ static void	*routine(void *args)
 		{
 			takefork(data, index1, index2);
 			eating(data, index1, index2);
+			if (data->philo[index1].nbr_eat == data->info.number_of_times)
+				return (NULL);
 		}
-		print(data, index1, SLEEP);
-		ft_sleep(data, data->info.time_to_sleep);
+		sleeping(data, index1);
 		print(data, index1, THINK);
 	}
 	return (NULL);
 }
 
-static void *manager_philosophers(void *args)
+static void	*manager_philosophers(void *args)
 {
-	t_data *data;
-	data = (t_data *)args;
-	int i;
-	int now;
+	t_data	*data;
+	int		i;
+	int		now;
 
-	while(69)
+	data = (t_data *)args;
+	while (69)
 	{
 		i = -1;
-		while(++i < data->info.number_of_philo)
+		while (++i < data->info.number_of_philo)
 		{
 			now = get_time(data);
 			if (now - data->philo[i].last_eat >= data->info.time_to_die)
 			{
 				print(data, i, DIED);
 				return (NULL);
+			}
+			if (eat_enought(data))
+			{
+				pthread_mutex_lock(&data->mutex_data);
+				data->philo[0].dead = true;
+				return (pthread_mutex_unlock(&data->mutex_data), NULL);
 			}
 		}
 	}
@@ -81,19 +92,13 @@ static void *manager_philosophers(void *args)
 
 bool	threading(t_data *data)
 {
-	t_all	*all;
-	int		i;
-	pthread_t manager;
+	t_all		*all;
+	int			i;
+	pthread_t	manager;
 
-	all = (t_all *)malloc(sizeof(t_all) * data->info.number_of_philo);
+	all = get_all_information(data);
 	if (!all)
-		return (printf("malloc failed...\n"), true);
-	i = -1;
-	while (++i < data->info.number_of_philo)
-	{
-		all[i].data = data;
-		all[i].index = i;
-	}
+		return (true);
 	i = -1;
 	while (++i < data->info.number_of_philo)
 	{
@@ -108,6 +113,6 @@ bool	threading(t_data *data)
 		if (pthread_join(data->philo[i].thread, NULL) != 0)
 			return (free(all), printf("pthread join failed...\n"), true);
 	if (pthread_join(manager, NULL) != 0)
-			return (free(all), printf("pthread join failed...\n"), true);
+		return (free(all), printf("pthread join failed...\n"), true);
 	return (free(all), false);
 }
