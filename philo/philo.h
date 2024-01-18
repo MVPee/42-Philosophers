@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 14:42:17 by mvan-pee          #+#    #+#             */
-/*   Updated: 2024/01/17 19:00:31 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/01/18 10:22:31 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,18 +33,18 @@ enum				e_action
 
 typedef struct s_info
 {
-	int				number_of_philo;
-	int				time_to_die;
-	int				time_to_eat;
-	int				time_to_sleep;
+	unsigned int	number_of_philo;
+	unsigned int	time_to_die;
+	unsigned int	time_to_eat;
+	unsigned int	time_to_sleep;
 	int				number_of_times;
 }					t_info;
 
 typedef struct s_philo
 {
-	int				id;
-	int				last_eat;
-	int				nbr_eat;
+	unsigned int	id;
+	unsigned int	last_eat;
+	unsigned int	nbr_eat;
 	pthread_t		thread;
 	pthread_mutex_t	fork;
 	bool			dead;
@@ -52,19 +52,17 @@ typedef struct s_philo
 
 typedef struct s_data
 {
-	int				start_time;
+	unsigned int	start_time;
 	t_info			info;
 	t_philo			*philo;
 	pthread_mutex_t	mutex_print;
-	pthread_mutex_t	mutex_fork;
-	pthread_mutex_t	mutex_eat;
 	pthread_mutex_t	mutex_data;
 }					t_data;
 
 typedef struct s_all
 {
 	t_data			*data;
-	int				index;
+	unsigned int	index;
 }					t_all;
 
 /* Main function for threading*/
@@ -73,10 +71,6 @@ void				print(t_data *data, int index, int code);
 void				takefork(t_data *data, int index1, int index2);
 void				eating(t_data *data, int index1, int index2);
 void				sleeping(t_data *data, int index);
-
-/* Initialisation */
-bool				init_info(t_data *data, char **args);
-bool				init_philo(t_data *data);
 
 /* Utils */
 int					ft_atoi(const char *nptr);

@@ -6,11 +6,11 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 10:45:10 by mvpee             #+#    #+#             */
-/*   Updated: 2024/01/17 18:59:27 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/01/18 10:23:31 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philo.h"
+#include "philo.h"
 
 bool	is_died(t_data *data)
 {
@@ -18,7 +18,7 @@ bool	is_died(t_data *data)
 
 	i = -1;
 	pthread_mutex_lock(&data->mutex_data);
-	while (++i < data->info.number_of_philo)
+	while (++i < (int) data->info.number_of_philo)
 		if (data->philo[i].dead == true)
 			return (pthread_mutex_unlock(&data->mutex_data), true);
 	return (pthread_mutex_unlock(&data->mutex_data), false);
@@ -77,16 +77,16 @@ int	get_time(t_data *data)
 	return (result);
 }
 
-t_all *get_all_information(t_data *data)
+t_all	*get_all_information(t_data *data)
 {
-	t_all *all;
-	int i;
+	t_all	*all;
+	int		i;
 
 	all = (t_all *)malloc(sizeof(t_all) * data->info.number_of_philo);
 	if (!all)
 		return (printf("malloc failed...\n"), NULL);
 	i = -1;
-	while (++i < data->info.number_of_philo)
+	while (++i < (int) data->info.number_of_philo)
 	{
 		all[i].data = data;
 		all[i].index = i;

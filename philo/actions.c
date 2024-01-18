@@ -6,11 +6,11 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 14:14:26 by mvpee             #+#    #+#             */
-/*   Updated: 2024/01/17 18:55:39 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/01/18 10:23:27 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philo.h"
+#include "philo.h"
 
 void	print(t_data *data, int index, int code)
 {
