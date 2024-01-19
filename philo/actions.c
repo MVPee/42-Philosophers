@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   actions.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 14:14:26 by mvpee             #+#    #+#             */
-/*   Updated: 2024/01/18 10:23:27 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/01/19 11:19:54 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,10 @@ void	takefork(t_data *data, int index1, int index2)
 void	eating(t_data *data, int index1, int index2)
 {
 	print(data, index1, EAT);
+	pthread_mutex_lock(&data->mutex_eat);
 	data->philo[index1].last_eat = get_time(data);
 	data->philo[index1].nbr_eat += 1;
+	pthread_mutex_unlock(&data->mutex_eat);
 	ft_sleep(data, data->info.time_to_eat);
 	pthread_mutex_unlock(&data->philo[index2].fork);
 	pthread_mutex_unlock(&data->philo[index1].fork);

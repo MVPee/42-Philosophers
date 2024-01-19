@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 14:41:32 by mvan-pee          #+#    #+#             */
-/*   Updated: 2024/01/18 10:31:01 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/01/19 11:23:00 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,10 @@ static bool	init_philo(t_data *data)
 		data->philo[i].dead = false;
 		pthread_mutex_init(&data->philo[i].fork, NULL);
 	}
+	pthread_mutex_init(&data->mutex_print, NULL);
+	pthread_mutex_init(&data->mutex_data, NULL);
+	pthread_mutex_init(&data->mutex_eat, NULL);
+	pthread_mutex_init(&data->mutex_time, NULL);
 	return (false);
 }
 
@@ -55,8 +59,6 @@ static bool	init_info(t_data *data, char **args)
 	data->info = info;
 	data->philo = NULL;
 	data->start_time = 0;
-	pthread_mutex_init(&data->mutex_print, NULL);
-	pthread_mutex_init(&data->mutex_data, NULL);
 	return (false);
 }
 

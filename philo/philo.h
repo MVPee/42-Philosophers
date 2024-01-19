@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 14:42:17 by mvan-pee          #+#    #+#             */
-/*   Updated: 2024/01/18 10:22:31 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/01/19 11:23:15 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ typedef struct s_data
 	t_philo			*philo;
 	pthread_mutex_t	mutex_print;
 	pthread_mutex_t	mutex_data;
+	pthread_mutex_t	mutex_eat;
+	pthread_mutex_t	mutex_time;
 }					t_data;
 
 typedef struct s_all

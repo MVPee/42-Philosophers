@@ -3,26 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 10:45:10 by mvpee             #+#    #+#             */
-/*   Updated: 2024/01/18 10:23:31 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/01/19 11:23:18 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-bool	is_died(t_data *data)
-{
-	int	i;
-
-	i = -1;
-	pthread_mutex_lock(&data->mutex_data);
-	while (++i < (int) data->info.number_of_philo)
-		if (data->philo[i].dead == true)
-			return (pthread_mutex_unlock(&data->mutex_data), true);
-	return (pthread_mutex_unlock(&data->mutex_data), false);
-}
 
 int	ft_atoi(const char *nptr)
 {
@@ -52,6 +40,18 @@ int	ft_atoi(const char *nptr)
 	return (nbr * sign);
 }
 
+bool	is_died(t_data *data)
+{
+	int	i;
+
+	i = -1;
+	pthread_mutex_lock(&data->mutex_data);
+	while (++i < (int) data->info.number_of_philo)
+		if (data->philo[i].dead == true)
+			return (pthread_mutex_unlock(&data->mutex_data), true);
+	return (pthread_mutex_unlock(&data->mutex_data), false);
+}
+
 void	ft_sleep(t_data *data, int time)
 {
 	int	start;
@@ -67,6 +67,7 @@ int	get_time(t_data *data)
 	struct timeval	time;
 	struct timeval	start;
 
+	pthread_mutex_lock(&data->mutex_time);
 	if (!data->start_time)
 	{
 		gettimeofday(&start, NULL);
@@ -74,6 +75,7 @@ int	get_time(t_data *data)
 	}
 	gettimeofday(&time, NULL);
 	result = (time.tv_sec * 1000 + time.tv_usec / 1000) - data->start_time;
+	pthread_mutex_unlock(&data->mutex_time);
 	return (result);
 }
 

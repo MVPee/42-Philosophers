@@ -3,27 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 10:43:13 by mvan-pee          #+#    #+#             */
-/*   Updated: 2024/01/18 10:23:39 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/01/19 11:22:43 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-static bool	eat_enought(t_data *data)
-{
-	int	i;
-
-	if (data->info.number_of_times == -1)
-		return (false);
-	i = -1;
-	while (++i < (int) data->info.number_of_philo)
-		if ((int) data->philo[i].nbr_eat != data->info.number_of_times)
-			return (false);
-	return (true);
-}
 
 static int	get_left_index(t_data *data, int index)
 {
@@ -61,6 +48,22 @@ static void	*routine(void *args)
 	return (NULL);
 }
 
+static bool	eat_enought(t_data *data)
+{
+	int	i;
+
+	if (data->info.number_of_times == -1)
+		return (false);
+	i = -1;
+	while (++i < (int) data->info.number_of_philo)
+		if ((int) data->philo[i].nbr_eat != data->info.number_of_times)
+			return (false);
+	pthread_mutex_lock(&data->mutex_data);
+	data->philo[0].dead = true;
+	pthread_mutex_unlock(&data->mutex_data);
+	return (true);
+}
+
 static void	*manager_philosophers(void *args)
 {
 	t_data	*data;
@@ -74,17 +77,15 @@ static void	*manager_philosophers(void *args)
 		while (++i < (int) data->info.number_of_philo)
 		{
 			now = get_time(data);
+			pthread_mutex_lock(&data->mutex_eat);
 			if (now - data->philo[i].last_eat >= data->info.time_to_die)
 			{
 				print(data, i, DIED);
-				return (NULL);
+				return (pthread_mutex_unlock(&data->mutex_eat), NULL);
 			}
+			pthread_mutex_unlock(&data->mutex_eat);
 			if (eat_enought(data))
-			{
-				pthread_mutex_lock(&data->mutex_data);
-				data->philo[0].dead = true;
-				return (pthread_mutex_unlock(&data->mutex_data), NULL);
-			}
+				return (NULL);
 		}
 	}
 	return (NULL);
