@@ -6,7 +6,7 @@
 /*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 14:14:26 by mvpee             #+#    #+#             */
-/*   Updated: 2024/01/19 11:19:54 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/01/19 13:55:12 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,15 @@
 void	print(t_data *data, int index, int code)
 {
 	pthread_mutex_lock(&data->mutex_print);
-	if (code == FORK && !is_died(data))
+	if (code == FORK && !has_died(data))
 		printf("%d %d has taken a fork\n", get_time(data), index + 1);
-	else if (code == EAT && !is_died(data))
+	else if (code == EAT && !has_died(data))
 		printf("%d %d is eating\n", get_time(data), index + 1);
-	else if (code == SLEEP && !is_died(data))
+	else if (code == SLEEP && !has_died(data))
 		printf("%d %d is sleeping\n", get_time(data), index + 1);
-	else if (code == THINK && !is_died(data))
+	else if (code == THINK && !has_died(data))
 		printf("%d %d is thinking\n", get_time(data), index + 1);
-	else if (code == DIED && !is_died(data))
+	else if (code == DIED && !has_died(data))
 	{
 		printf("%d %d died\n", get_time(data), index + 1);
 		pthread_mutex_lock(&data->mutex_data);

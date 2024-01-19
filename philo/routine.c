@@ -6,7 +6,7 @@
 /*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 10:43:13 by mvan-pee          #+#    #+#             */
-/*   Updated: 2024/01/19 11:22:43 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/01/19 13:56:57 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	*routine(void *args)
 	data->philo[index1].last_eat = get_time(data);
 	if (data->philo[index1].id % 2 == 0)
 		ft_sleep(data, data->info.time_to_eat / 10);
-	while (!is_died(data))
+	while (!has_died(data))
 	{
 		if (data->info.number_of_philo != 1)
 		{
@@ -48,7 +48,7 @@ static void	*routine(void *args)
 	return (NULL);
 }
 
-static bool	eat_enought(t_data *data)
+static bool	have_eat_enought(t_data *data)
 {
 	int	i;
 
@@ -84,7 +84,7 @@ static void	*manager_philosophers(void *args)
 				return (pthread_mutex_unlock(&data->mutex_eat), NULL);
 			}
 			pthread_mutex_unlock(&data->mutex_eat);
-			if (eat_enought(data))
+			if (have_eat_enought(data))
 				return (NULL);
 		}
 	}
@@ -97,7 +97,7 @@ bool	threading(t_data *data)
 	int			i;
 	pthread_t	manager;
 
-	all = get_all_information(data);
+	all = get_all_informations(data);
 	if (!all)
 		return (true);
 	i = -1;

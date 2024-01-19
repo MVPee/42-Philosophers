@@ -6,7 +6,7 @@
 /*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 10:45:10 by mvpee             #+#    #+#             */
-/*   Updated: 2024/01/19 11:23:18 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/01/19 13:56:11 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	ft_atoi(const char *nptr)
 	return (nbr * sign);
 }
 
-bool	is_died(t_data *data)
+bool	has_died(t_data *data)
 {
 	int	i;
 
@@ -79,7 +79,7 @@ int	get_time(t_data *data)
 	return (result);
 }
 
-t_all	*get_all_information(t_data *data)
+t_all	*get_all_informations(t_data *data)
 {
 	t_all	*all;
 	int		i;

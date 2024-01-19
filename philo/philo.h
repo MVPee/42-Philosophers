@@ -6,7 +6,7 @@
 /*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 14:42:17 by mvan-pee          #+#    #+#             */
-/*   Updated: 2024/01/19 11:23:15 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/01/19 13:55:12 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,8 @@ void				sleeping(t_data *data, int index);
 int					ft_atoi(const char *nptr);
 int					get_time(t_data *data);
 void				ft_sleep(t_data *data, int time);
-bool				is_died(t_data *data);
+bool				has_died(t_data *data);
 bool				check_last_eat(t_data *data, int index);
-t_all				*get_all_information(t_data *data);
+t_all				*get_all_informations(t_data *data);
 
 #endif
